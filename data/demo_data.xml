@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- ==================== ORGANIZATIONS ==================== -->
+        <record id="demo_org_erc" model="csr.fundraising">
+            <field name="name">Emirates Red Crescent</field>
+            <field name="organization_type">ngo</field>
+            <field name="target_amount">50000.00</field>
+            <field name="amount_raised">32500.00</field>
+            <field name="manager">Fatima Al Suwaidi</field>
+        </record>
+
+        <record id="demo_org_sssd" model="csr.fundraising">
+            <field name="name">Sharjah Social Services Department (SSSD)</field>
+            <field name="organization_type">gov</field>
+            <field name="target_amount">120000.00</field>
+            <field name="amount_raised">120000.00</field>
+            <field name="manager">Tariq Al Qassimi</field>
+        </record>
+
+        <record id="demo_org_aus" model="csr.fundraising">
+            <field name="name">AUS Community Services</field>
+            <field name="organization_type">gov</field>
+            <field name="target_amount">15000.00</field>
+            <field name="amount_raised">4500.00</field>
+            <field name="manager">Dr. Ahmed Ali</field>
+        </record>
+
+        <record id="demo_org_foodbank" model="csr.fundraising">
+            <field name="name">UAE Food Bank</field>
+            <field name="organization_type">ngo</field>
+            <field name="target_amount">80000.00</field>
+            <field name="amount_raised">64000.00</field>
+            <field name="manager">Sara Mansour</field>
+        </record>
+
+        <!-- ==================== CONTRACTORS ==================== -->
+        <record id="demo_contractor_sangeetha" model="csr.contractor">
+            <field name="name">Sangeetha Catering Services</field>
+            <field name="contact_person">Rajesh Kumar</field>
+            <field name="phone">+971 50 123 4567</field>
+        </record>
+
+        <record id="demo_contractor_techbots" model="csr.contractor">
+            <field name="name">Dubai TechBots Logistics</field>
+            <field name="contact_person">Omar Hassan</field>
+            <field name="phone">+971 55 987 6543</field>
+        </record>
+
+        <record id="demo_contractor_gazebo" model="csr.contractor">
+            <field name="name">Gazebo Event Management</field>
+            <field name="contact_person">Syed Abbas</field>
+            <field name="phone">+971 52 456 7890</field>
+        </record>
+
+        <!-- ==================== STUDENT VOLUNTEERS ==================== -->
+        <record id="demo_vol_arun" model="csr.volunteer">
+            <field name="name">Ezhilarunan Azhakarasu</field>
+            <field name="university_id">b00084321</field>
+            <field name="major">Computer Science</field>
+            <field name="email">b00084321@aus.edu</field>
+            <field name="sssd_registered">True</field>
+            <field name="red_crescent_registered">True</field>
+        </record>
+
+        <record id="demo_vol_soham" model="csr.volunteer">
+            <field name="name">Soham</field>
+            <field name="university_id">b00085432</field>
+            <field name="major">Mechanical Engineering</field>
+            <field name="email">b00085432@aus.edu</field>
+            <field name="sssd_registered">False</field>
+            <field name="red_crescent_registered">True</field>
+        </record>
+
+        <record id="demo_vol_vishnu" model="csr.volunteer">
+            <field name="name">Vishnu</field>
+            <field name="university_id">b00086543</field>
+            <field name="major">Computer Engineering</field>
+            <field name="email">b00086543@aus.edu</field>
+            <field name="sssd_registered">True</field>
+            <field name="red_crescent_registered">False</field>
+        </record>
+
+        <record id="demo_vol_shreyaas" model="csr.volunteer">
+            <field name="name">Shreyaas OOB</field>
+            <field name="university_id">b00087654</field>
+            <field name="major">Electrical Engineering</field>
+            <field name="email">b00087654@aus.edu</field>
+            <field name="sssd_registered">True</field>
+            <field name="red_crescent_registered">True</field>
+        </record>
+
+        <record id="demo_vol_nivi" model="csr.volunteer">
+            <field name="name">Nivi</field>
+            <field name="university_id">b00088765</field>
+            <field name="major">Design Management</field>
+            <field name="email">b00088765@aus.edu</field>
+            <field name="sssd_registered">False</field>
+            <field name="red_crescent_registered">True</field>
+        </record>
+
+        <!-- ==================== PROJECTS & HOUR LOGS ==================== -->
+        
+        <!-- Completed Project -->
+        <record id="demo_project_fasting" model="csr.project">
+            <field name="name">Fasting Breakfast Distribution</field>
+            <field name="fundraising_ids" eval="[(6, 0, [ref('demo_org_sssd')])]"/>
+            <field name="contractor_id" ref="demo_contractor_sangeetha"/>
+            <field name="description">Coordinated meal distribution across Al Nahda and Sharjah University City.</field>
+            <field name="start_date">2026-03-15</field>
+            <field name="end_date">2026-04-12</field>
+            <field name="progress">completed</field>
+            <field name="expense_amount">4500.00</field>
+            <field name="volunteer_line_ids" eval="[
+                (0, 0, {'volunteer_id': ref('demo_vol_arun'), 'hours': 12.5}),
+                (0, 0, {'volunteer_id': ref('demo_vol_soham'), 'hours': 10.0}),
+                (0, 0, {'volunteer_id': ref('demo_vol_shreyaas'), 'hours': 15.0})
+            ]"/>
+        </record>
+
+        <!-- Ongoing Project -->
+        <record id="demo_project_kalba" model="csr.project">
+            <field name="name">Kalba University Ramadan Race Tracker</field>
+            <field name="fundraising_ids" eval="[(6, 0, [ref('demo_org_aus')])]"/>
+            <field name="contractor_id" ref="demo_contractor_techbots"/>
+            <field name="description">Building and monitoring the tracking infrastructure for the Kalba Campus race event.</field>
+            <field name="start_date">2026-09-01</field>
+            <field name="end_date">2026-09-30</field>
+            <field name="progress">ongoing</field>
+            <field name="expense_amount">1200.00</field>
+            <field name="volunteer_line_ids" eval="[
+                (0, 0, {'volunteer_id': ref('demo_vol_arun'), 'hours': 6.0}),
+                (0, 0, {'volunteer_id': ref('demo_vol_vishnu'), 'hours': 8.5})
+            ]"/>
+        </record>
+
+        <!-- Planning Project 1 -->
+        <record id="demo_project_archery" model="csr.project">
+            <field name="name">National Archery Championship Logistics</field>
+            <field name="fundraising_ids" eval="[(6, 0, [ref('demo_org_erc')])]"/>
+            <field name="contractor_id" ref="demo_contractor_gazebo"/>
+            <field name="description">Setup and coordination for the upcoming archery championship in Dubai.</field>
+            <field name="start_date">2026-10-15</field>
+            <field name="end_date">2026-10-18</field>
+            <field name="progress">planning</field>
+            <field name="expense_amount">0.00</field>
+            <field name="volunteer_line_ids" eval="[
+                (0, 0, {'volunteer_id': ref('demo_vol_nivi'), 'hours': 0.0}),
+                (0, 0, {'volunteer_id': ref('demo_vol_soham'), 'hours': 0.0})
+            ]"/>
+        </record>
+
+        <!-- Planning Project 2 -->
+        <record id="demo_project_traffic" model="csr.project">
+            <field name="name">School Zone Traffic Light AI Deployment</field>
+            <field name="fundraising_ids" eval="[(6, 0, [ref('demo_org_sssd'), ref('demo_org_erc')])]"/>
+            <field name="contractor_id" ref="demo_contractor_techbots"/>
+            <field name="description">Assisting engineering teams with dynamic traffic light simulation testing in Al Barsha school zones.</field>
+            <field name="start_date">2026-11-05</field>
+            <field name="end_date">2026-11-20</field>
+            <field name="progress">planning</field>
+            <field name="expense_amount">3000.00</field>
+            <field name="volunteer_line_ids" eval="[
+                (0, 0, {'volunteer_id': ref('demo_vol_arun'), 'hours': 0.0}),
+                (0, 0, {'volunteer_id': ref('demo_vol_vishnu'), 'hours': 0.0}),
+                (0, 0, {'volunteer_id': ref('demo_vol_shreyaas'), 'hours': 0.0})
+            ]"/>
+        </record>
+
+    </data>
+</odoo>

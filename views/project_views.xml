@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_project_form" model="ir.ui.view">
+        <field name="name">csr.project.form</field>
+        <field name="model">csr.project</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="progress" widget="statusbar" options="{'clickable': '1'}"/>                
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Project Name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="fundraising_ids" widget="many2many_tags" placeholder="Select organizations..."/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Volunteers" name="volunteers">
+                            <field name="volunteer_line_ids">
+                                <list editable="bottom">
+                                    <field name="volunteer_id"/>
+                                    <field name="university_id"/>
+                                    <field name="major"/>
+                                    <field name="hours" sum="Total Hours"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Contractor Details" name="contractor">
+                            <group>
+                                <field name="contractor_id"/>
+                                <field name="expense_amount" widget="monetary"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                        </page>
+                        <page string="Description" name="description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_project_list" model="ir.ui.view">
+        <field name="name">csr.project.list</field>
+        <field name="model">csr.project</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="fundraising_ids" widget="many2many_tags"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="progress"/>
+                <field name="expense_amount" widget="monetary"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_project_kanban" model="ir.ui.view">
+        <field name="name">csr.project.kanban</field>
+        <field name="model">csr.project</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_project" draggable="false">
+                <field name="name"/>
+                <field name="fundraising_ids"/>
+                <field name="progress"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="expense_amount"/>
+                <field name="currency_id"/>
+                <field name="duration_days"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click o_kanban_card d-flex flex-column">
+                            
+                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                <strong class="o_kanban_record_title fs-5" style="max-width: 70%;">
+                                    <t t-esc="record.name.value ? record.name.value : 'Unnamed Project'"/>
+                                </strong>
+                                <strong class="text-success text-end">
+                                    <field name="expense_amount" widget="monetary"/>
+                                </strong>
+                            </div>
+                            
+                            <div class="mb-2">
+                                <span class="text-muted" style="font-size: 0.85em; margin-right: 4px;">Donor Org(s):</span>
+                                <field name="fundraising_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            </div>
+                            
+                            <div class="progress mb-3 mt-auto" style="height: 6px;">
+                                <t t-if="record.progress.raw_value == 'planning'">
+                                    <div class="progress-bar bg-danger" style="width: 20%;"/>
+                                </t>
+                                <t t-elif="record.progress.raw_value == 'ongoing'">
+                                    <div class="progress-bar bg-warning" style="width: 60%;"/>
+                                </t>
+                                <t t-elif="record.progress.raw_value == 'completed'">
+                                    <div class="progress-bar bg-success" style="width: 100%;"/>
+                                </t>
+                            </div>
+                            
+                            <div class="text-muted d-flex align-items-center" style="font-size: 0.85em;">
+                                <i class="fa fa-calendar me-2" title="Dates"/>
+                                <span>
+                                    <t t-esc="record.start_date.value ? record.start_date.value : '-'"/> 
+                                    <i class="fa fa-long-arrow-right mx-1"/> 
+                                    <t t-esc="record.end_date.value ? record.end_date.value : '-'"/>
+                                </span>
+                                <span class="ms-auto fw-bold">
+                                    <t t-esc="record.duration_days.value ? record.duration_days.value : 0"/>d
+                                </span>
+                            </div>
+                            
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    
+    <record id="view_project_calendar" model="ir.ui.view">
+        <field name="name">csr.project.calendar</field>
+        <field name="model">csr.project</field>
+        <field name="arch" type="xml">
+            <calendar string="Projects Calendar" 
+                    date_start="start_date" 
+                    date_stop="end_date"
+                    color="color">
+                <field name="name"/>
+                <field name="fundraising_ids" widget="many2many_tags"/>
+                <field name="expense_amount"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="action_csr_project" model="ir.actions.act_window">
+        <field name="name">Projects</field>
+        <field name="res_model">csr.project</field>
+        <field name="view_mode">kanban,list,form,graph,calendar</field>
+        <field name="context">{'group_by':'progress'}</field>
+    </record>
+</odoo>

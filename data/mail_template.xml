@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="email_template_volunteer_certificate" model="mail.template">
+            <field name="name">Volunteer Certificate Email</field>
+            <field name="model_id" ref="community_service.model_csr_volunteer"/>
+            <field name="subject">Your UniAid Certificate of Appreciation</field>
+            <field name="email_to">{{ object.email }}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px; font-family: Arial, Helvetica, sans-serif;">
+                    <p style="margin: 0px; padding: 0px; font-size: 14px;">
+                        Dear <t t-out="object.name or 'Volunteer'"></t>,<br/><br/>
+                        Thank you for your outstanding dedication to community service. 
+                        Please find attached your official Certificate of Appreciation for logging 
+                        <strong><t t-out="object.total_hours"></t> hours</strong> across our initiatives.<br/><br/>
+                        Best regards,<br/>
+                        <strong>Program Director</strong><br/>
+                        AUS Community Service Department
+                    </p>
+                </div>
+            </field>
+            <field name="report_template_ids" eval="[(4, ref('community_service.action_report_volunteer_certificate'))]"/>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

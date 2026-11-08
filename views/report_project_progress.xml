@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_report_project_progress" model="ir.actions.report">
+        <field name="name">Project Progress Report</field>
+        <field name="model">csr.project</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">community_service.report_project_progress_template</field>
+        <field name="report_file">community_service.report_project_progress_template</field>
+        <field name="binding_model_id" ref="model_csr_project"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_project_progress_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        
+                        <div class="text-center mb-4">
+                            <h2>American University of Sharjah</h2>
+                            <h4>Community Service &amp; Volunteer Progress Report</h4>
+                        </div>
+
+                        <h3 class="mt-4 border-bottom pb-2">
+                            Project: <span t-field="o.name"/>
+                        </h3>
+
+                        <div class="row mt-4 mb-4">
+                            <div class="col-6">
+                                <strong>Status: </strong> <span t-field="o.progress"/><br/>
+                                <strong>Start Date: </strong> <span t-field="o.start_date"/><br/>
+                                <strong>End Date: </strong> <span t-field="o.end_date"/><br/>
+                                <strong>Duration: </strong> <span t-field="o.duration_days"/> days<br/>
+                            </div>
+                            <div class="col-6">
+                                <strong>Donor Organization: </strong> 
+                                <t t-foreach="o.fundraising_ids" t-as="org">
+                                    <span t-field="org.name"/><span t-if="not org_last">, </span>
+                                </t><br/>
+                                <strong>Primary Contractor: </strong> <span t-field="o.contractor_id.name"/><br/>
+                                <strong>Project Expenses: </strong> <span t-field="o.expense_amount"/><br/>
+                            </div>
+                        </div>
+
+                        <h4 class="mt-4">Registered Student Volunteers</h4>
+                        <table class="table table-sm table-bordered mt-2">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>University ID</th>
+                                    <th>Major</th>
+                                    <th>Hours Worked</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.volunteer_line_ids" t-as="line">
+                                    <tr>
+                                        <td><span t-field="line.volunteer_id.name"/></td>
+                                        <td><span t-field="line.university_id"/></td>
+                                        <td><span t-field="line.major"/></td>
+                                        <td><span t-field="line.hours"/></td>
+                                    </tr>
+                                </t>
+                                <t t-if="not o.volunteer_line_ids">
+                                    <tr>
+                                        <td colspan="4" class="text-center text-muted">No students registered yet.</td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <div class="mt-4" t-if="o.description">
+                            <h4>Project Notes</h4>
+                            <p t-field="o.description"/>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

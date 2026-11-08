@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_volunteer_form" model="ir.ui.view">
+        <field name="name">csr.volunteer.form</field>
+        <field name="model">csr.volunteer</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_send_certificate_email" type="object" string="Send Certificate by Email" class="oe_highlight" icon="fa-envelope"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="email" widget="email"/>
+                            <field name="university_id"/>
+                            <field name="major"/>
+                        </group>
+                        <group>
+                            <field name="sssd_registered"/>
+                            <field name="red_crescent_registered"/>
+                            <field name="total_hours"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_volunteer_list" model="ir.ui.view">
+        <field name="name">csr.volunteer.list</field>
+        <field name="model">csr.volunteer</field>
+        <field name="arch" type="xml">
+            <list string="Volunteers">
+                <field name="name"/>
+                <field name="university_id"/>
+                <field name="major"/>
+                <field name="total_hours"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_csr_volunteer" model="ir.actions.act_window">
+        <field name="name">Volunteers</field>
+        <field name="res_model">csr.volunteer</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

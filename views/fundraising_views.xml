@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_fundraising_form" model="ir.ui.view">
+        <field name="name">csr.fundraising.form</field>
+        <field name="model">csr.fundraising</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="e.g., Emirates Red Crescent"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="organization_type"/>
+                            <field name="manager"/>
+                        </group>
+                        <group>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="target_amount" widget="monetary"/>
+                            <field name="amount_raised" widget="monetary"/>
+                            <field name="progress_ratio" widget="progressbar"/>
+                            <field name="color" widget="color_picker"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Projects Supported">
+                            <field name="project_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="start_date"/>
+                                    <field name="progress"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_fundraising_list" model="ir.ui.view">
+        <field name="name">csr.fundraising.list</field>
+        <field name="model">csr.fundraising</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="organization_type"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="amount_raised" widget="monetary"/>
+                <field name="project_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <field name="progress_bar_html" widget="html"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_fundraising_graph" model="ir.ui.view">
+        <field name="name">csr.fundraising.graph</field>
+        <field name="model">csr.fundraising</field>
+        <field name="arch" type="xml">
+            <graph string="Contributions by Organization" type="pie">
+                <field name="amount_raised" type="measure"/>
+                <field name="name" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_csr_fundraising" model="ir.actions.act_window">
+        <field name="name">Organizations</field>
+        <field name="res_model">csr.fundraising</field>
+        <field name="view_mode">list,form,graph</field>
+    </record>
+</odoo>

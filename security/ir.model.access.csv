@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_csr_volunteer,csr.volunteer,model_csr_volunteer,base.group_user,1,1,1,1
+access_csr_fundraising,csr.fundraising,model_csr_fundraising,base.group_user,1,1,1,1
+access_csr_contractor,csr.contractor,model_csr_contractor,base.group_user,1,1,1,1
+access_csr_project,csr.project,model_csr_project,base.group_user,1,1,1,1
+access_csr_project_volunteer_line,csr.project.volunteer.line,model_csr_project_volunteer_line,base.group_user,1,1,1,1

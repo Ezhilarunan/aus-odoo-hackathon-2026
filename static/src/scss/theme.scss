@@ -1,0 +1,23 @@
+.o_main_navbar {
+  background: linear-gradient(110deg, #093b80 0%, #0965af 65%, #087f63 100%);
+  border-bottom: 3px solid #19b88b;
+
+  .o_menu_brand {
+    align-items: center;
+    gap: 10px;
+  }
+
+  .o_uniaid_logo {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+}
+
+.o_main_navbar .o_menu_sections .o_nav_entry,
+.o_main_navbar .o_menu_sections .dropdown-toggle {
+  background-color: transparent;
+}

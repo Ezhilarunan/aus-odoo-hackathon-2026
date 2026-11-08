@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_contractor_form" model="ir.ui.view">
+        <field name="name">csr.contractor.form</field>
+        <field name="model">csr.contractor</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="contact_person"/>
+                        <field name="currency_id" invisible="True"/>
+                        <field name="total_expense" widget="monetary"/>
+                    </group>
+                    <notebook>
+                        <page string="Involved Projects">
+                            <field name="project_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="expense_amount" widget="monetary"/>
+                                    <field name="currency_id" column_invisible="True"/>
+                                    <field name="progress"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_contractor_list" model="ir.ui.view">
+        <field name="name">csr.contractor.list</field>
+        <field name="model">csr.contractor</field>
+        <field name="arch" type="xml">
+            <list string="Contractors">
+                <field name="name"/>
+                <field name="contact_person"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="total_expense" widget="monetary"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_csr_contractor" model="ir.actions.act_window">
+        <field name="name">Contractors</field>
+        <field name="res_model">csr.contractor</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

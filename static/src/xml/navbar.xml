@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="community_service.NavBar" t-inherit="web.NavBar" t-inherit-mode="extension">
+        <xpath expr="//DropdownItem[@t-esc='currentApp.name']" position="attributes">
+            <attribute name="t-esc"/>
+        </xpath>
+        <xpath expr="//DropdownItem[@onSelected='() => this.onNavBarDropdownItemSelection(currentApp)']" position="inside">
+            <img t-if="currentApp.xmlid === 'community_service.menu_csr_root'"
+                 class="o_uniaid_logo" src="/community_service/static/description/icon.jpeg"
+                 alt="UniAid logo"/>
+            <span t-esc="currentApp.name"/>
+        </xpath>
+    </t>
+</templates>

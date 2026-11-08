@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_csr_root" name="UniAid"/>
+
+    <menuitem id="menu_csr_projects" name="Projects" parent="menu_csr_root" action="action_csr_project" sequence="10"/>
+    <menuitem id="menu_csr_volunteers" name="Volunteers" parent="menu_csr_root" action="action_csr_volunteer" sequence="20"/>
+    <menuitem id="menu_csr_fundraising" name="Organizations" parent="menu_csr_root" action="action_csr_fundraising" sequence="30"/>
+    <menuitem id="menu_csr_contractors" name="Contractors" parent="menu_csr_root" action="action_csr_contractor" sequence="40"/>
+</odoo>
